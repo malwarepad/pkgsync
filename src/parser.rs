@@ -9,13 +9,13 @@ use std::{
 pub fn get_installed_pkgs() -> Vec<String> {
     let cmd = Command::new("pacman").args(["-Qett"]).output();
     if cmd.is_err() {
-        println!("Failed to detect packages!");
+        eprintln!("Failed to detect packages!");
         exit(1);
     }
 
     let cmd_res = cmd.unwrap();
     if !cmd_res.status.success() {
-        println!("Failed to detect packages!");
+        eprintln!("Failed to detect packages!");
         exit(1);
     }
 

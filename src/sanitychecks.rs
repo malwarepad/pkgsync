@@ -6,12 +6,12 @@ use std::process::{exit, Command};
 
 pub fn arch() {
     if Command::new("pacman").args(["--version"]).output().is_err() {
-        println!("Pacman package manager not detected!");
+        eprintln!("Pacman package manager not detected!");
         exit(1);
     }
 
     if Command::new("yay").args(["--version"]).output().is_err() {
-        println!("Yay AUR helper not detected!");
+        eprintln!("Yay AUR helper not detected!");
         exit(1);
     }
 }

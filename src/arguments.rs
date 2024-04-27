@@ -39,7 +39,7 @@ fn summer_2022() {
 pub fn check_args() -> OperationType {
     let arg_len = env::args().len();
     if arg_len > 2 {
-        println!("Invalid amount of arguments/options!\n");
+        eprintln!("Invalid amount of arguments/options!\n");
         help();
         exit(1);
     } else if arg_len < 2 {
@@ -65,7 +65,7 @@ pub fn check_args() -> OperationType {
         summer_2022();
         exit(0);
     } else {
-        println!("Invalid argument passed: {}\n", argument);
+        eprintln!("Invalid argument passed: {}\n", argument);
         help();
         exit(1);
     }
