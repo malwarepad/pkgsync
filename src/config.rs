@@ -20,7 +20,7 @@ pub struct Config {
 }
 
 fn path(name: &str) -> String {
-    let home_path = env::var("HOME").unwrap();
+    let home_path = env::var("HOME").expect("Could not parse user's home directory");
     let folder_path = Path::new(&home_path).join(".config/pkgsync");
     fs::create_dir_all(&folder_path).expect("Could not create .config directory");
 
