@@ -3,15 +3,6 @@ use std::{env, process::exit};
 // Argv parser & multiple text-only implementations
 // Copyright (C) 2024 Panagiotis
 
-pub enum OperationType {
-    ConfigToSystem,
-    SystemToConfig,
-    Prettier,
-    Help,
-    Info,
-    Version,
-}
-
 pub fn help() {
     println!(
         "Usage:
@@ -36,7 +27,7 @@ fn summer_2022() {
     println!("The burden of memory is too heavy to handle. Everything I held dear has been changed, corrupted, vanished or died with time and now only exists in my mind. I live to carry those echoes within me into the future. Call it nostalgia, but I know in my heart that it must be more than that.");
 }
 
-pub fn check_args() -> OperationType {
+pub fn check_args() -> String {
     let arg_len = env::args().len();
     if arg_len > 2 {
         eprintln!("Invalid amount of arguments/options!\n");
@@ -49,24 +40,10 @@ pub fn check_args() -> OperationType {
 
     let argument = env::args().nth(1).expect("Could not parse first argument");
 
-    if argument == "--config-to-system" {
-        OperationType::ConfigToSystem
-    } else if argument == "--system-to-config" {
-        OperationType::SystemToConfig
-    } else if argument == "--prettier" {
-        OperationType::Prettier
-    } else if argument == "--help" {
-        OperationType::Help
-    } else if argument == "--info" {
-        OperationType::Info
-    } else if argument == "--version" {
-        OperationType::Version
-    } else if argument == "--summer-2022" {
+    if argument == "--summer-2022" {
         summer_2022();
         exit(0);
-    } else {
-        eprintln!("Invalid argument passed: {}\n", argument);
-        help();
-        exit(1);
     }
+
+    argument
 }

@@ -1,3 +1,5 @@
+use std::process::exit;
+
 mod arguments;
 mod config;
 mod parser;
@@ -10,24 +12,30 @@ mod sync;
 fn main() {
     sanitychecks::arch(); // pacman, yay
 
-    match arguments::check_args() {
-        arguments::OperationType::Help => {
+    let argument = arguments::check_args();
+    match argument.as_str() {
+        "--help" => {
             arguments::help();
         }
-        arguments::OperationType::Version => {
+        "--version" => {
             arguments::version();
         }
-        arguments::OperationType::Info => {
+        "--info" => {
             config::info();
         }
-        arguments::OperationType::Prettier => {
+        "--prettier" => {
             config::prettier();
         }
-        arguments::OperationType::ConfigToSystem => {
+        "--config-to-system" => {
             sync::config_to_system();
         }
-        arguments::OperationType::SystemToConfig => {
+        "--system-to-config" => {
             sync::system_to_config();
+        }
+        _ => {
+            eprintln!("Invalid argument passed: {}\n", argument);
+            arguments::help();
+            exit(1);
         }
     }
 }
