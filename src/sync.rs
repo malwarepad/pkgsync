@@ -9,12 +9,12 @@ pub fn system_to_config() {
     let mut config = config::get();
     let pkgs = parser::get_installed_pkgs();
 
+    let category = config
+        .categories
+        .iter_mut()
+        .find(|o| o.name == "archlinux")
+        .expect("Category with the name 'archlinux' could not be found");
     for pkg in pkgs {
-        let category = config
-            .categories
-            .iter_mut()
-            .find(|o| o.name == "archlinux")
-            .expect("Category with the name 'archlinux' could not be found");
         category.pkgs.push(pkg);
     }
     config::update(config);
@@ -23,12 +23,13 @@ pub fn system_to_config() {
 pub fn config_to_system() {
     let config = config::get();
 
-    let mut config_list: Vec<String> = vec![];
-    for category in config.categories {
-        for pkg in category.pkgs {
-            config_list.push(pkg);
-        }
-    }
+    let category = config
+        .categories
+        .iter()
+        .find(|o| o.name == "archlinux")
+        .expect("Category with the name 'archlinux' could not be found");
+
+    let config_list = &category.pkgs;
 
     let system_list = parser::get_installed_pkgs();
     let install_list = parser::get_extra(&config_list, &system_list);
