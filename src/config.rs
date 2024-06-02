@@ -133,7 +133,7 @@ fn generate() {
     let default = Config {
         last_updated: date,
         categories: vec![Category {
-            name: String::from("other"),
+            name: String::from("archlinux"),
             pkgs: vec![],
         }],
     };

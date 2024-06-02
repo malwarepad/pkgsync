@@ -13,8 +13,8 @@ pub fn system_to_config() {
         let category = config
             .categories
             .iter_mut()
-            .find(|o| o.name == "other")
-            .expect("Category with the name 'other' could not be found");
+            .find(|o| o.name == "archlinux")
+            .expect("Category with the name 'archlinux' could not be found");
         category.pkgs.push(pkg);
     }
     config::update(config);
